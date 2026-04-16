@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Voltines App</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #10131a;
+      --card: #171c26;
+      --text: #f2f5f8;
+      --muted: #b8c1cc;
+      --accent: #9fe870;
+      --line: #2a3342;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: linear-gradient(180deg, #0d1016, var(--bg));
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+    .hero, .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(0,0,0,.25);
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 5vw, 4rem);
+    }
+    .tag {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .85rem;
+      margin-bottom: 10px;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .stack {
+      display: grid;
+      gap: 20px;
+    }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    a.button {
+      background: var(--accent);
+      color: #111;
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    a.button.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+    iframe {
+      width: 100%;
+      min-height: 380px;
+      border: 0;
+      border-radius: 14px;
+      background: #000;
+    }
+    h2, h3 { margin-top: 0; }
+    ul { padding-left: 18px; }
+    li { margin: 6px 0; color: var(--muted); }
+    p { color: var(--muted); line-height: 1.6; }
+    footer {
+      color: var(--muted);
+      text-align: center;
+      margin: 24px 0 8px;
+      font-size: .9rem;
+    }
+    code {
+      background: #0f141d;
+      padding: .15rem .35rem;
+      border-radius: 6px;
+      border: 1px solid var(--line);
+    }
+    @media (max-width: 860px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="tag">$tagline</div>
+      <h1>The Voltines</h1>
+      <p>$description</p>
+      <p>Now shipping as a Python package. This is objectively ridiculous and therefore correct.</p>
+      <div class="buttons">
+        <a class="button" href="$site_url" target="_blank" rel="noreferrer">Visit site</a>
+        <a class="button secondary" href="$music_url" target="_blank" rel="noreferrer">Music</a>
+        <a class="button secondary" href="$gigs_url" target="_blank" rel="noreferrer">Gigs</a>
+        <a class="button secondary" href="$contact_form_url" target="_blank" rel="noreferrer">Book the band</a>
+      </div>
+    </section>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Watch</h2>
+        <p>The official local application experience: a tiny branded page with your embedded playlist.</p>
+        <iframe src="$playlist_embed" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </section>
+
+      <div class="stack">
+        <section class="panel">
+          <h2>Install</h2>
+          <p><code>pip install voltines</code></p>
+          <p><code>voltines app</code> · <code>voltines watch</code> · <code>voltines request "Mr. Brightside"</code></p>
+        </section>
+
+        <section class="panel">
+          <h2>Gig status</h2>
+          $gigs_html
+        </section>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="panel">
+        <h2>Sample repertoire</h2>
+        $setlist_html
+      </section>
+
+      <section class="panel">
+        <h2>Useful links</h2>
+        <ul>
+          <li><a href="$site_url" target="_blank" rel="noreferrer">voltines.com</a></li>
+          <li><a href="$music_url" target="_blank" rel="noreferrer">Music</a></li>
+          <li><a href="$gigs_url" target="_blank" rel="noreferrer">Gigs</a></li>
+          <li><a href="$contact_url" target="_blank" rel="noreferrer">Contact page</a></li>
+          <li><a href="$contact_form_url" target="_blank" rel="noreferrer">Booking form</a></li>
+        </ul>
+      </section>
+    </div>
+
+    <footer>voltines v$version · promotional software for live music</footer>
+  </div>
+</body>
+</html>
