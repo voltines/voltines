@@ -17,9 +17,7 @@ from .data import (
     CONTACT_URL,
     DESCRIPTION,
     GIGS_URL,
-    GIG_STATUS,
     MUSIC_URL,
-    PAST_GIGS,
     SETLIST,
     SITE_URL,
     TAGLINE,
@@ -43,14 +41,11 @@ def _setlist_html() -> str:
     return "\n".join(blocks)
 
 
-def _gigs_html() -> str:
-    items = "".join(f"<li>{gig}</li>" for gig in PAST_GIGS)
-    return f"<p>{GIG_STATUS}</p><ul>{items}</ul>"
-
-
 def render_app_html() -> str:
     template = Template(_TEMPLATE_PATH.read_text(encoding="utf-8"))
-    playlist_embed = YOUTUBE_PLAYLIST_URL.replace("playlist?list=", "embed/videoseries?list=")
+    playlist_embed = YOUTUBE_PLAYLIST_URL.replace(
+        "playlist?list=", "embed/videoseries?list="
+    )
     return template.safe_substitute(
         version=__version__,
         site_url=SITE_URL,
@@ -62,7 +57,6 @@ def render_app_html() -> str:
         description=DESCRIPTION,
         playlist_embed=playlist_embed,
         setlist_html=_setlist_html(),
-        gigs_html=_gigs_html(),
     )
 
 

@@ -17,7 +17,6 @@ from .data import (
     DESCRIPTION,
     FACEBOOK_URL,
     GIGS_URL,
-    GIG_STATUS,
     INSTAGRAM_URL,
     MUSIC_URL,
     SETLIST,
@@ -28,7 +27,6 @@ from .data import (
 
 HECKLES = [
     "Play Wonderwall!",
-    "Free Bird, but professionally!",
     "Can you make this wedding 12% more dangerous?",
     "More reverb. Less fear.",
     "This setlist needs additional voltage.",
@@ -77,14 +75,17 @@ def cmd_music(_: argparse.Namespace) -> int:
 def cmd_gigs(_: argparse.Namespace) -> int:
     webbrowser.open(GIGS_URL)
     _print("Opening the gigs page...")
-    _print(GIG_STATUS)
     return 0
 
 
 def cmd_contact(args: argparse.Namespace) -> int:
     target = CONTACT_FORM_URL if args.form else CONTACT_URL
     webbrowser.open(target)
-    _print("Opening the contact page..." if not args.form else "Opening the booking form...")
+    _print(
+        "Opening the contact page..."
+        if not args.form
+        else "Opening the booking form..."
+    )
     return 0
 
 
@@ -111,7 +112,6 @@ def cmd_request(args: argparse.Namespace) -> int:
     if not song:
         _print("Please provide a song request.")
         return 2
-    _print(f"Request logged: {song}")
     _print("Official response: excellent taste.")
     _print(f"To ask the actual humans, use: {CONTACT_FORM_URL}")
     return 0
@@ -136,7 +136,6 @@ def cmd_api(_: argparse.Namespace) -> int:
             "instagram": INSTAGRAM_URL,
             "facebook": FACEBOOK_URL,
         },
-        "gigs_status": GIG_STATUS,
         "setlist_sections": list(SETLIST.keys()),
         "version": __version__,
     }
@@ -175,7 +174,9 @@ def build_parser() -> argparse.ArgumentParser:
             """
         ),
     )
-    parser.add_argument("--version", action="version", version=f"voltines {__version__}")
+    parser.add_argument(
+        "--version", action="version", version=f"voltines {__version__}"
+    )
 
     subparsers = parser.add_subparsers(dest="command", required=True)
 
@@ -193,15 +194,21 @@ def build_parser() -> argparse.ArgumentParser:
         subparsers.add_parser(name).set_defaults(func=func)
 
     contact_parser = subparsers.add_parser("contact")
-    contact_parser.add_argument("--form", action="store_true", help="Open the booking form directly.")
+    contact_parser.add_argument(
+        "--form", action="store_true", help="Open the booking form directly."
+    )
     contact_parser.set_defaults(func=cmd_contact)
 
     setlist_parser = subparsers.add_parser("setlist")
-    setlist_parser.add_argument("--json", action="store_true", help="Print the setlist as JSON.")
+    setlist_parser.add_argument(
+        "--json", action="store_true", help="Print the setlist as JSON."
+    )
     setlist_parser.set_defaults(func=cmd_setlist)
 
     request_parser = subparsers.add_parser("request")
-    request_parser.add_argument("song", nargs=argparse.REMAINDER, help="Song title to request.")
+    request_parser.add_argument(
+        "song", nargs=argparse.REMAINDER, help="Song title to request."
+    )
     request_parser.set_defaults(func=cmd_request)
 
     return parser
