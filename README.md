@@ -37,7 +37,7 @@ voltines gigs         # See upcoming gigs
 voltines music        # Browse repertoire
 voltines setlist      # Current setlist
 voltines request "Mr. Brightside"
-voltines heckle       # Risky
+voltines heckle       # Be Gentle
 voltines links        # Everything in one place
 ```
 
